@@ -1,14 +1,9 @@
 package transport;
 
 import java.time.LocalDate;
-public class Car {
-    private final String brand;
-    private final String model;
-    private double engineVolume;
-    private String color;
-    private final int year;
-    private final String country;
+public class Car extends Transport {
 
+    private double engineVolume;
     private String transmission;
     private final String bodyType;
     private String registrationNumber;
@@ -16,33 +11,12 @@ public class Car {
     private boolean isWInterSeason;
 
 
-    public Car(String brand, String model, int year, String country, String color, double engineVolume,
-               String transmission, String bodyType, String registrationNumber, int seetsNumber, boolean isWInterSeason) {
-        if (brand == null || brand.isBlank() || brand.isEmpty()) {
-            this.brand = "default";
-        } else {
-            this.brand = brand;
-        }
-        if (model == null || model.isBlank() || model.isEmpty()) {
-            this.model = "default";
-        } else {
-            this.model = model;
-        }
-        if (country == null || country.isBlank() || country.isEmpty()) {
-            this.country = "default";
-        } else {
-            this.country = country;
-        }
-        if (year <= 0) {
-            this.year = 2000;
-        } else {
-            this.year = year;
-        }
-        if (color == null || color.isBlank() || color.isEmpty()) {
-            this.color = "белый";
-        } else {
-            this.color = color;
-        }
+    public Car (String brand, String model, int year, String country, String colour, int maxSpeed, double engineVolume,
+                String transmission, String bodyType, String registrationNumber, int seetsNumber, Boolean isWinterSeason) {
+
+        super(brand, model, year, country, colour, maxSpeed);
+
+
         if (engineVolume <= 0) {
             this.engineVolume = 1.5;
         } else {
@@ -68,7 +42,6 @@ public class Car {
         } else {
             this.registrationNumber = registrationNumber.toUpperCase();
         }
-        if(isWInterSeason == true)
         this.isWInterSeason = true;
     }
 
@@ -92,9 +65,6 @@ public class Car {
         return engineVolume;
     }
 
-    public String getColor() {
-        return color;
-    }
 
     public int getYear() {
         return year;
@@ -124,10 +94,6 @@ public class Car {
         this.engineVolume = engineVolume;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public void setTransmission(String transmission) {
         this.transmission = transmission;
     }
@@ -142,7 +108,7 @@ public class Car {
         return
                 " Марка автомобиля: " + brand + "\n" +
                         " Модель: " + model + "\n" +
-                        " Цвет: " + color + "\n" +
+                        " Цвет: " + colour + "\n" +
                         " Год выпуска: " + year + "\n" +
                         " Страна сборки: " + country + "\n" +
                         " Объем двигателя: " + engineVolume + " л." + "\n" +
@@ -150,7 +116,9 @@ public class Car {
                         " Тип кузова: " + bodyType + "\n" +
                         " Регистрационный номер: " + registrationNumber + "\n" +
                         " Посадочных мест: " + seetsNumber + "\n" +
-                        " Резина(сезон зима): " + isWInterSeason;
+                        " Резина(сезон зима): " + isWInterSeason + "\n" +
+                        " Максимальная скорость (в км/ч): " + maxSpeed + "\n";
+
     }
 
 
@@ -251,11 +219,11 @@ public class Car {
 
     }
 
-    public static String changeRubber(int currentMonthNumber) {
-        if (currentMonthNumber > 4 && currentMonthNumber < 10) {
-            return "Машина переобута в летнюю резину";
+    public static boolean changeRubber(int currentMonthNumber) {
+        if (currentMonthNumber < 4 || currentMonthNumber >= 10) {
+            return true;
         } else {
-            return "Машина переобута в зимнюю резину";
+            return false;
         }
     }
 }
